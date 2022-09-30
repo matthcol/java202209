@@ -1,9 +1,6 @@
 package data;
 
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import miniorm.Column;
 import miniorm.Table;
@@ -12,10 +9,19 @@ import miniorm.Table;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(callSuper = true)
 public class Pilot extends Person {
 
     @Column
     @PositiveOrZero
-    private double agility;
+    private Double agility;
+
+    @Null
+    @Min(value = 500, message = "minimun flight hours to be a pilot")
+    private Integer flightHours;
+
+    @Override
+    public Pilot whoAreYou() {
+        return (Pilot) super.whoAreYou();
+    }
 }

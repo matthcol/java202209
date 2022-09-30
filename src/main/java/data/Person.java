@@ -1,6 +1,8 @@
 package data;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import lombok.*;
 import miniorm.Column;
 
@@ -27,6 +29,11 @@ public class Person extends Mammal {
 
     private LocalDate birthdate;
 
+    @Null
+    @Min(3)
+    private Integer shoeSize;
+
+
     /**
      * age at least the 31st december of current year
      * @return age
@@ -37,5 +44,10 @@ public class Person extends Mammal {
             return OptionalInt.empty();
         }
         return OptionalInt.of(today.getYear() - birthdate.getYear());
+    }
+
+    @Override
+    public Person whoAreYou() {
+        return this;
     }
 }
